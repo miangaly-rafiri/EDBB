@@ -1,26 +1,23 @@
-CREATE DATABASE IF NOT EXISTS gestionStock;
-USE gestionStock;
-
-CREATE TABLE Clients (
+CREATE TABLE IF NOT EXISTS Clients  (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     adresse VARCHAR(255),
     coordonnees VARCHAR(255)
 );
 
-CREATE TABLE Commandes (
+CREATE TABLE IF NOT EXISTS Commandes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT NOT NULL,
     date_commande DATE NOT NULL,
     FOREIGN KEY (client_id) REFERENCES Clients(id) ON DELETE CASCADE
 );
 
-CREATE TABLE Categories (
+CREATE TABLE IF NOT EXISTS Categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE Produits (
+CREATE TABLE IF NOT EXISTS Produits (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     prix_unitaire DECIMAL(10, 2) NOT NULL,
@@ -29,14 +26,14 @@ CREATE TABLE Produits (
     FOREIGN KEY (categorie_id) REFERENCES Categories(id) ON DELETE SET NULL
 );
 
-CREATE TABLE Fournisseurs (
+CREATE TABLE IF NOT EXISTS Fournisseurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     adresse VARCHAR(255),
     coordonnees VARCHAR(255)
 );
 
-CREATE TABLE Lignes_Commande (
+CREATE TABLE IF NOT EXISTS Lignes_Commande (
     id INT AUTO_INCREMENT PRIMARY KEY,
     commande_id INT NOT NULL,
     produit_id INT NOT NULL,
