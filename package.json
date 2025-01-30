@@ -1,0 +1,25 @@
+{
+  "name": "edbb",
+  "version": "1.0.0",
+  "description": "Exploitation de la base de donnée",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miangaly-rafiri/EDBB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miangaly-rafiri/EDBB/issues"
+  },
+  "homepage": "https://github.com/miangaly-rafiri/EDBB#readme",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.12.0"
+  }
+}
