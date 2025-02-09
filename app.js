@@ -28,6 +28,17 @@ app.use(express.json());
         }
     });
 
+    app.get('/produits/injection', async (req, res) => {
+        try {
+            const { nom } = req.query; 
+            const query = `SELECT * FROM Produits WHERE nom='${nom}'`;
+            const [results] = await connection.query(query);
+            res.send(results);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
     app.post('/produits', async (req, res) => {
         try {
             const produit = req.body;
