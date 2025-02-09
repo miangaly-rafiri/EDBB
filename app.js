@@ -20,10 +20,11 @@ app.use(express.json());
     // Création de la connexion à la base de données
     const connection = await mysql.createPool(dbConfig);
 
-    // CRUD pour Produits
+    // CRUD pour Produits (vulnérable)
     app.get('/produits', async (req, res) => {
         try {
-            const [results] = await connection.query('SELECT * FROM Produits');
+            const query = `SELECT * FROM Produits`; // Vulnérable, sans paramètres
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -33,7 +34,8 @@ app.use(express.json());
     app.post('/produits', async (req, res) => {
         try {
             const produit = req.body;
-            const [results] = await connection.query('INSERT INTO Produits SET ?', produit);
+            const query = `INSERT INTO Produits (nom, description, prix) VALUES ('${produit.nom}', '${produit.description}', ${produit.prix})`; // Vulnérable   
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -43,7 +45,8 @@ app.use(express.json());
     app.put('/produits/:id', async (req, res) => {
         try {
             const produit = req.body;
-            const [results] = await connection.query('UPDATE Produits SET ? WHERE id = ?', [produit, req.params.id]);
+            const query = `UPDATE Produits SET nom = '${produit.nom}', description = '${produit.description}', prix = ${produit.prix} WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -52,17 +55,19 @@ app.use(express.json());
 
     app.delete('/produits/:id', async (req, res) => {
         try {
-            const [results] = await connection.query('DELETE FROM Produits WHERE id = ?', [req.params.id]);
+            const query = `DELETE FROM Produits WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
         }
     });
 
-    // CRUD pour Clients
+    // CRUD pour Clients (vulnérable)
     app.get('/clients', async (req, res) => {
         try {
-            const [results] = await connection.query('SELECT * FROM Clients');
+            const query = `SELECT * FROM Clients`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -72,7 +77,8 @@ app.use(express.json());
     app.post('/clients', async (req, res) => {
         try {
             const client = req.body;
-            const [results] = await connection.query('INSERT INTO Clients SET ?', client);
+            const query = `INSERT INTO Clients (nom, email, adresse) VALUES ('${client.nom}', '${client.email}', '${client.adresse}')`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -82,7 +88,8 @@ app.use(express.json());
     app.put('/clients/:id', async (req, res) => {
         try {
             const client = req.body;
-            const [results] = await connection.query('UPDATE Clients SET ? WHERE id = ?', [client, req.params.id]);
+            const query = `UPDATE Clients SET nom = '${client.nom}', email = '${client.email}', adresse = '${client.adresse}' WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -91,17 +98,19 @@ app.use(express.json());
 
     app.delete('/clients/:id', async (req, res) => {
         try {
-            const [results] = await connection.query('DELETE FROM Clients WHERE id = ?', [req.params.id]);
+            const query = `DELETE FROM Clients WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
         }
     });
 
-    // CRUD pour Commandes
+    // CRUD pour Commandes (vulnérable)
     app.get('/commandes', async (req, res) => {
         try {
-            const [results] = await connection.query('SELECT * FROM Commandes');
+            const query = `SELECT * FROM Commandes`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -111,7 +120,8 @@ app.use(express.json());
     app.post('/commandes', async (req, res) => {
         try {
             const commande = req.body;
-            const [results] = await connection.query('INSERT INTO Commandes SET ?', commande);
+            const query = `INSERT INTO Commandes (client_id, produit_id, quantite) VALUES (${commande.client_id}, ${commande.produit_id}, ${commande.quantite})`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -121,7 +131,8 @@ app.use(express.json());
     app.put('/commandes/:id', async (req, res) => {
         try {
             const commande = req.body;
-            const [results] = await connection.query('UPDATE Commandes SET ? WHERE id = ?', [commande, req.params.id]);
+            const query = `UPDATE Commandes SET client_id = ${commande.client_id}, produit_id = ${commande.produit_id}, quantite = ${commande.quantite} WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -130,17 +141,19 @@ app.use(express.json());
 
     app.delete('/commandes/:id', async (req, res) => {
         try {
-            const [results] = await connection.query('DELETE FROM Commandes WHERE id = ?', [req.params.id]);
+            const query = `DELETE FROM Commandes WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
         }
     });
 
-    // CRUD pour Categories
+    // CRUD pour Categories (vulnérable)
     app.get('/categories', async (req, res) => {
         try {
-            const [results] = await connection.query('SELECT * FROM Categories');
+            const query = `SELECT * FROM Categories`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -150,7 +163,8 @@ app.use(express.json());
     app.post('/categories', async (req, res) => {
         try {
             const categorie = req.body;
-            const [results] = await connection.query('INSERT INTO Categories SET ?', categorie);
+            const query = `INSERT INTO Categories (nom) VALUES ('${categorie.nom}')`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -160,7 +174,8 @@ app.use(express.json());
     app.put('/categories/:id', async (req, res) => {
         try {
             const categorie = req.body;
-            const [results] = await connection.query('UPDATE Categories SET ? WHERE id = ?', [categorie, req.params.id]);
+            const query = `UPDATE Categories SET nom = '${categorie.nom}' WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -169,17 +184,19 @@ app.use(express.json());
 
     app.delete('/categories/:id', async (req, res) => {
         try {
-            const [results] = await connection.query('DELETE FROM Categories WHERE id = ?', [req.params.id]);
+            const query = `DELETE FROM Categories WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
         }
     });
 
-    // CRUD pour Fournisseurs
+    // CRUD pour Fournisseurs (vulnérable)
     app.get('/fournisseurs', async (req, res) => {
         try {
-            const [results] = await connection.query('SELECT * FROM Fournisseurs');
+            const query = `SELECT * FROM Fournisseurs`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -189,7 +206,8 @@ app.use(express.json());
     app.post('/fournisseurs', async (req, res) => {
         try {
             const fournisseur = req.body;
-            const [results] = await connection.query('INSERT INTO Fournisseurs SET ?', fournisseur);
+            const query = `INSERT INTO Fournisseurs (nom, contact) VALUES ('${fournisseur.nom}', '${fournisseur.contact}')`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -199,7 +217,8 @@ app.use(express.json());
     app.put('/fournisseurs/:id', async (req, res) => {
         try {
             const fournisseur = req.body;
-            const [results] = await connection.query('UPDATE Fournisseurs SET ? WHERE id = ?', [fournisseur, req.params.id]);
+            const query = `UPDATE Fournisseurs SET nom = '${fournisseur.nom}', contact = '${fournisseur.contact}' WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -208,17 +227,19 @@ app.use(express.json());
 
     app.delete('/fournisseurs/:id', async (req, res) => {
         try {
-            const [results] = await connection.query('DELETE FROM Fournisseurs WHERE id = ?', [req.params.id]);
+            const query = `DELETE FROM Fournisseurs WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
         }
     });
 
-    // CRUD pour Lignes_Commande
+    // CRUD pour Lignes_Commande (vulnérable)
     app.get('/lignes_commande', async (req, res) => {
         try {
-            const [results] = await connection.query('SELECT * FROM Lignes_Commande');
+            const query = `SELECT * FROM Lignes_Commande`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -228,7 +249,8 @@ app.use(express.json());
     app.post('/lignes_commande', async (req, res) => {
         try {
             const ligneCommande = req.body;
-            const [results] = await connection.query('INSERT INTO Lignes_Commande SET ?', ligneCommande);
+            const query = `INSERT INTO Lignes_Commande (commande_id, produit_id, quantite) VALUES (${ligneCommande.commande_id}, ${ligneCommande.produit_id}, ${ligneCommande.quantite})`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -238,7 +260,8 @@ app.use(express.json());
     app.put('/lignes_commande/:id', async (req, res) => {
         try {
             const ligneCommande = req.body;
-            const [results] = await connection.query('UPDATE Lignes_Commande SET ? WHERE id = ?', [ligneCommande, req.params.id]);
+            const query = `UPDATE Lignes_Commande SET commande_id = ${ligneCommande.commande_id}, produit_id = ${ligneCommande.produit_id}, quantite = ${ligneCommande.quantite} WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
@@ -247,7 +270,8 @@ app.use(express.json());
 
     app.delete('/lignes_commande/:id', async (req, res) => {
         try {
-            const [results] = await connection.query('DELETE FROM Lignes_Commande WHERE id = ?', [req.params.id]);
+            const query = `DELETE FROM Lignes_Commande WHERE id = ${req.params.id}`; // Vulnérable
+            const [results] = await connection.query(query);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
