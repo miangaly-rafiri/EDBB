@@ -18,6 +18,6 @@ INSERT INTO Commandes (client_id, date_commande) VALUES
 (1, '2024-05-01'),
 (2, '2025-09-12');
 
-INSERT INTO Lignes_Commande (commande_id, produit_id, quantite, prix_unitaire) VALUES 
+INSERT INTO Lignes_de_Commande (commande_id, produit_id, quantite, prix_unitaire) VALUES 
 (1, 1, 2, 10.00),
 (2, 2, 3, 15.00);
