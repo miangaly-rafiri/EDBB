@@ -68,7 +68,89 @@ L'architecture de la base de données a été modulée pour permettre une gestio
     Vous pouvez maintenant interagir avec l'API en utilisant des outils comme [Postman] ou [Insomnia].
 
 
-## Historique des Commits
+## Historique des Commits : 
+
+$$$
+
+commit 53f7e1354c75d3f782eabcc771f93fece2ed9b07 (HEAD -> main, origin/main, origin/HEAD)
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 23:25:36 2025 +0100
+
+    push final + README + Synhtèse
+
+commit eeb7c6ca77d4d7e64b3b74ad4bba6b70dfec5573
+Merge: 46a282b a019f8b
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 22:04:57 2025 +0100
+
+    Merge branch 'miaV2'
+
+commit a019f8b95cca7dcdb4c3c2cf5eb781b7f2f6c168 (origin/miaV2, miaV2)
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 22:04:42 2025 +0100
+
+    ajout des requetes / V2 fini
+
+commit 46a282ba5ebf32dab9093541ccca9ea786b8baaf (origin/miaV1, miaV1)
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 21:14:42 2025 +0100
+
+    ajout des requêtes test
+
+commit b0b6c555e7e831d074d758f2ae294b285e9678cd
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 20:45:24 2025 +0100
+
+    erreur du nom de la db, correction
+
+commit 18bd28c8d6c22cd19fa884c0db82f0828629f28d
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 20:42:48 2025 +0100
+
+    changement du fichier app.js pour mettre les requêtes parametrés
+
+commit 9dabc748844bd6db624177e19578c695d13c8260
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 20:31:29 2025 +0100
+
+     V1 fini
+
+commit d33ac830d58349ee3e944c567ad394c89a94741b
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 20:24:19 2025 +0100
+
+    push changement des fichiers sql
+
+commit 15d45c4dd88c574d3cf92cd3e6b6fecbefd6c88c
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 19:19:53 2025 +0100
+
+    changement de fichiers pour le mettre dans le dossier db
+
+commit f9b31b8bd84be2704050231406e705673f21a2c4
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Sun Feb 9 19:18:49 2025 +0100
+
+    changement de fichiers pour le mettre dans le dossier db
+
+commit 1d03b5c30971c94595a0c1145819f72b89e64a43
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Thu Jan 30 16:21:13 2025 +0100
+
+    Version 1 qui marche
+
+commit f40d0463df5baedaea15caa5af1c3969a2fff6a8
+Author: Miangaly Rafiringa <miangalyrafi@gmail.com>
+Date:   Thu Jan 30 15:54:59 2025 +0100
+
+    push de la création de la bdd et aussi les requêtes dans le JS
+
+commit 756ec279449b30e40001de33f1e22315dd6f584b
+Author: miangaly-rafiri <150609961+miangaly-rafiri@users.noreply.github.com>
+Date:   Thu Jan 30 10:43:46 2025 +0100
+
+    Initial commit
+$$$
 
 ### V1 → Audit → V2
 
