@@ -104,13 +104,22 @@ app.use(express.json());
 
     app.get('/commandes', async (req, res) => {
         try {
-            const query = `SELECT * FROM Commandes`;
-            const [results] = await connection.query(query);
+            const { start, end } = req.query;
+            let query = `SELECT * FROM Commandes`;
+            let queryParams = [];
+            
+            if (start && end) {
+                query += ` WHERE date_commande BETWEEN ? AND ?`;
+                queryParams.push(start, end);
+            }
+            
+            const [results] = await connection.query(query, queryParams);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
         }
     });
+    
 
     app.post('/commandes', async (req, res) => {
         try {
@@ -264,6 +273,108 @@ app.use(express.json());
         try {
             const query = `DELETE FROM Lignes_Commande WHERE id = ?`;
             const [results] = await connection.query(query, [req.params.id]);
+            res.send(results);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    app.get('/clients/:id/commandes', async (req, res) => {
+        try {
+            const clientId = req.params.id;
+            const query = `SELECT * FROM Commandes WHERE client_id = ?`;
+            const [results] = await connection.query(query, [clientId]);
+            res.send(results);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    app.get('/produits/:id/commandes', async (req, res) => {
+        try {
+            const productId = req.params.id;
+            const query = `
+                SELECT DISTINCT c.* 
+                FROM Commandes c
+                JOIN Lignes_Commande lc ON lc.commande_id = c.id
+                WHERE lc.produit_id = ?
+            `;
+            const [results] = await connection.query(query, [productId]);
+            res.send(results);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    app.get('/commandes/recherche', async (req, res) => {
+        try {
+            const { client_id, start, end, statut, produit_id } = req.query;
+            
+            let query = `SELECT * FROM Commandes c JOIN Lignes_Commande lc ON lc.commande_id = c.id WHERE 1=1`;
+            let queryParams = [];
+
+            if (client_id) {
+                query += ` AND c.client_id = ?`;
+                queryParams.push(client_id);
+            }
+            if (start && end) {
+                query += ` AND c.date_commande BETWEEN ? AND ?`;
+                queryParams.push(start, end);
+            }
+            if (statut) {
+                query += ` AND c.statut = ?`;
+                queryParams.push(statut);
+            }
+            if (produit_id) {
+                query += ` AND lc.produit_id = ?`;
+                queryParams.push(produit_id);
+            }
+
+            const [results] = await connection.query(query, queryParams);
+            res.send(results);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    app.get('/stats/produits-les-plus-vendus', async (req, res) => {
+        try {
+            const query = `
+                SELECT p.nom, SUM(lc.quantite) AS total_vendu
+                FROM Produits p
+                JOIN Lignes_Commande lc ON lc.produit_id = p.id
+                GROUP BY p.nom
+                ORDER BY total_vendu DESC
+            `;
+            const [results] = await connection.query(query);
+            res.send(results);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    app.get('/stats/total-ventes', async (req, res) => {
+        try {
+            const { start, end } = req.query;
+            const query = `
+                SELECT SUM(lc.quantite * p.prix) AS total_ventes
+                FROM Lignes_Commande lc
+                JOIN Produits p ON lc.produit_id = p.id
+                JOIN Commandes c ON lc.commande_id = c.id
+                WHERE c.date_commande BETWEEN ? AND ?
+            `;
+            const [results] = await connection.query(query, [start, end]);
+            res.send(results);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
+    app.get('/produits/stock-faible', async (req, res) => {
+        try {
+            const { seuil } = req.query;
+            const query = `SELECT * FROM Produits WHERE stock < ?`;
+            const [results] = await connection.query(query, [seuil]);
             res.send(results);
         } catch (error) {
             res.status(500).send(error);
