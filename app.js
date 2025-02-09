@@ -8,7 +8,7 @@ const dbConfig = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'gestionStock'
+    database: 'Stock'
 };
 
 app.use(express.json());
