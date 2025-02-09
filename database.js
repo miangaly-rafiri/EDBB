@@ -1,12 +1,10 @@
 const mysql = require("mysql2/promise");
 const fs = require("fs");
 
-// Configuration de la base de données
 const dbConfig = {    
     host: 'localhost', 
     user: 'root',   
     password: '', 
-    // database: 'gestionStock',
     multipleStatements: true
 };
 
@@ -16,7 +14,6 @@ const executeDB = async (connection, filePath) => {
     console.log(`${filePath} exécuté avec succès`);
 };
 
-// Fonction pour initialiser la base de données
 async function initializeDatabase() {
     try {
         const connection = await mysql.createConnection(dbConfig);
